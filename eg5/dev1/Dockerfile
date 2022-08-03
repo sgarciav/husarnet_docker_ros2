@@ -1,4 +1,4 @@
-FROM osrf/ros:galactic-desktop
+FROM osrf/ros:galactic-desktop-focal
 
 SHELL ["/bin/bash", "-c"]
 
@@ -12,5 +12,5 @@ RUN cd ros2_ws && \
 
 COPY eg5/dev1/ros_entrypoint.sh /
 
-ENTRYPOINT ["/ros_entrypoint.sh"]   
+ENTRYPOINT ["/ros_entrypoint.sh"]
 CMD ["bash"]

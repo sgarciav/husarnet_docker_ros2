@@ -7,10 +7,10 @@
             <MaxMessageSize>65500B</MaxMessageSize>
             <FragmentSize>4000B</FragmentSize>
             <Transport>udp6</Transport>
-        </General>      
+        </General>
         <Discovery>
             <Peers>
-                <Peer address="turtlesim"/>
+                <Peer address="assembler-client"/>
             </Peers>
             <ParticipantIndex>auto</ParticipantIndex>
         </Discovery>
