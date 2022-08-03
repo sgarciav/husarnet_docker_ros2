@@ -10,7 +10,7 @@
         </General>
         <Discovery>
             <Peers>
-                <Peer address="assembler-controller"/>
+                <Peer address="assembler-server"/>
             </Peers>
             <ParticipantIndex>auto</ParticipantIndex>
         </Discovery>

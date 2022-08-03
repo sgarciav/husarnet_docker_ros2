@@ -2,19 +2,31 @@ version: '2.3'
 
 services:
     turtle_sim:
-        image: osrf/ros:galactic-desktop-focal
-        environment:
-            - DISPLAY
-        volumes:
-            - /tmp/.X11-unix:/tmp/.X11-unix:rw
-            - ./cyclonedds.xml:/cyclonedds.xml
-        command:
-            - bash
-            - -c
-            - |
-                export CYCLONEDDS_URI=file:///cyclonedds.xml
-                ros2 run turtlesim turtlesim_node
+        build:
+            context: ../../
+            dockerfile: eg5/dev2/Dockerfile
+        # image: osrf/ros:galactic-desktop-focal
+        image: dev2_turtle_controller:latest
         network_mode: service:husarnet  # This will put the Husarnet Client in the same network namespace as your app (in this example: turtle_sim)
+        stdin_open: true               # docker run -i
+        tty: true                      # docker run -t
+        privileged: true               # Needed for /dev volume
+        runtime: nvidia
+        environment:
+          - DISPLAY=${DISPLAY}             # Pass the display for GUI
+          - QT_X11_NO_MITSHM=1             # Needed by QT programs
+          - XAUTHORITY=/tmp/.docker.xauth
+          - NVIDIA_VISIBLE_DEVICES=all
+          - NVIDIA_DRIVER_CAPABILITIES=all
+        volumes:
+          - /tmp/.X11-unix:/tmp/.X11-unix:rw
+          - ./cyclonedds.xml:/cyclonedds.xml
+        # command:
+        #     - bash
+        #     - -c
+        #     - |
+        #         export CYCLONEDDS_URI=file:///cyclonedds.xml
+        #         ros2 run turtlesim turtlesim_node
 
     husarnet:
         image: husarnet/husarnet
